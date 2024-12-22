@@ -30,7 +30,7 @@ $form.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedDialog
 
 # Címke hozzáadása
 $label = New-Object System.Windows.Forms.Label
-$label.Text = "Válassza ki, mely programokat szeretné frissíteni:"
+$label.Text = "Valassza ki, mely programokat szeretne frissiteni:"
 $label.Location = New-Object System.Drawing.Point(20,20)
 $label.Size = New-Object System.Drawing.Size(660,40)
 $label.Font = New-Object System.Drawing.Font("Segoe UI",14,[System.Drawing.FontStyle]::Bold)
@@ -78,7 +78,7 @@ $form.Controls.Add($btnUpdate)
 $btnUpdate.Add_Click({
     $selectedItems = $listBox.SelectedItems
     if ($selectedItems.Count -eq 0) {
-        [System.Windows.Forms.MessageBox]::Show("Kérlek, válassz ki legalább egy programot!")
+        [System.Windows.Forms.MessageBox]::Show("Kerlek, valassz ki legalabb egy programot!")
         return
     }
 
@@ -87,13 +87,13 @@ $btnUpdate.Add_Click({
     foreach ($item in $selectedItems) {
         $package = $packages | Where-Object { $_.Name -eq $item }
         if ($package) {
-            Write-Host "Frissítés indítása: $($package.Id)"
+            Write-Host "Frissites inditasa: $($package.Id)"
             Start-Process -NoNewWindow -Wait -FilePath "winget" -ArgumentList "upgrade --id $($package.Id)"
         }
         $progressBar.PerformStep()
     }
 
-    [System.Windows.Forms.MessageBox]::Show("Frissítés befejezve!")
+    [System.Windows.Forms.MessageBox]::Show("Frissites befejezve!")
     $progressBar.Value = 0
 })
 
